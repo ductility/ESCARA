@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <script>
+
+    $(document).ready(function(){
+
+        $("button").click(function(){
+
+            $.get("/index/" + $(this).attr('id'), function(data, status){ });
+
+        });
+
+    });
+
+    </script>
+
+    <meta charset="UTF-8">
+
+    <title>싸인로봇 동작시켜보자구</title>
+
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h2>모드 선택하기</h2>
+
+        <button type="button" class="btn btn-success" id='G28'>Home</button>
+
+
+
+        <button type="button" class="btn btn-warning" id='G1 X0Y0'>원점으로</button>
+
+        <button type="button" class="btn btn-primary" id='M3'>Pen Down</button>
+
+        <button type="button" class="btn btn-primary" id='M5'>Pen Up</button>
+
+        <!-- <button type="button" class="btn btn-default"  id='G1'></button> -->
+
+        </div>
+
+</body>
+
+</html>

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <script>
+
+    //dump에 보낼 gcode 넣기
+    var dump = null;
+    function dumpSet(gcode) {
+        dump = gcode;
+    }
+
+    $.send = function(data, status){
+        $.get("/joystick/" + dump, function(data, status){ });        
+    };
+
+    //send, joystick의 후손 버튼들을 눌렀을 때만 G코드 전송(비동기방식 설정해야하나?)
+    $(document).ready(function(){
+        $('.send button,.joystick button').click(function(){
+            $.send();
+        });
+        $('.file1').click(function(){
+            $.get("/image/" + "file1", function(data, status){ });
+        });
+
+        $('.file2').click(function(){
+            $.get("/image/" + "file2", function(data, status){ });
+        });
+
+        $('.file3').click(function(){
+            $.get("/image/" + "file3", function(data, status){ });
+        });
+
+        $('.file4').click(function(){
+            $.get("/image/" + "file4", function(data, status){ });
+        });
+    });
+
+    //조이스틱 구동을 위한 설정
+    var X = 0;
+    var Y = 0;
+    var step = 15;
+    function resetXY() {
+        X = 0;
+        Y = 0;
+        dumpSet("G1 X0Y0");
+    }
+
+    function X_plus() {
+        if (X+step <=300) X += step;
+        var gcode = "G1"+" X"+String(X)+"Y"+String(Y);
+        dumpSet(gcode);
+    }
+    function X_Minus() {
+        if (X-step >=0) X -= step;
+        var gcode = "G1"+" X"+String(X)+"Y"+String(Y);
+        dumpSet(gcode);
+    }
+    function Y_plus() {
+        if (Y+step <= 300) Y += step;
+        var gcode = "G1"+" X"+String(X)+"Y"+String(Y);
+        dumpSet(gcode);
+    }
+    function Y_Minus() {
+        if (Y-step >=0) Y -= step;
+        var gcode = "G1"+" X"+String(X)+"Y"+String(Y);
+        dumpSet(gcode);
+    }
+
+
+    </script>
+
+    <meta charset="UTF-8">
+
+    <title>싸인로봇 조이스틱으로 동작시켜보자구</title>
+
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h2>싸인로봇 조이스틱 컨트롤러</h2>
+        
+        <div class="send">
+            <div>
+            <button type="button" class="btn btn-warning" onclick='dumpSet("G28");'>Home</button>
+            <button type="button" class="btn btn-warning" onclick='resetXY()'>원점으로</button>
+            </div>
+            <div style='margin-bottom: 30px'>
+            <button type="button" class="btn btn-primary" onclick='dumpSet("M3");'>Pen Down</button>
+            <button type="button" class="btn btn-primary" onclick='dumpSet("M5");'>Pen Up</button>
+            </div>
+        </div>
+
+
+        <div class="joystick">
+            <div style='margin-bottom: 2px'><button type="button" class="btn btn-default" style='margin-left: 42px' style='margin-bottom: 2px' onclick="Y_plus();">상</button></div>
+            <div>
+            <span><button type="button" class="btn btn-default" onclick="X_Minus();">좌</button></span>
+            <span><button type="button" class="btn btn-default">O</button></span>
+            <span><button type="button" class="btn btn-default" onclick="X_plus();">우</button></span>
+            </div>
+            <div style='margin-top: 2px'><button type="button" class="btn btn-default" style= 'margin-left: 42px' onclick="Y_Minus();">하</button></div>
+        </div>
+
+        <div class="file">
+            <span><button class="file1">test1</button></span>
+            <span><button class="file2">test2</button></span>
+            <span><button class="file3">test3</button></span>
+            <span><button class="file4">test4</button></span>
+        </div>
+
+
+
+
+    </div>
+
+</body>
+
+</html>

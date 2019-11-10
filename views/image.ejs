@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <script>
+
+    //test1 눌렀을 때 file1 전송. 
+    $(document).ready(function(){
+        $('.file1').click(function(){
+            $.get("/image/" + "file1", function(data, status){ });
+        });
+
+        $('.file2').click(function(){
+            $.get("/image/" + "file2", function(data, status){ });
+        });
+
+        $('.file3').click(function(){
+            $.get("/image/" + "file3", function(data, status){ });
+        });
+
+        $('.file4').click(function(){
+            $.get("/image/" + "file4", function(data, status){ });
+        });
+    });
+
+
+
+    </script>
+
+    <meta charset="UTF-8">
+
+    <title>싸인로봇 조이스틱으로 동작시켜보자구</title>
+
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h2>싸인로봇 이미지 gcode 송신기</h2>
+        
+        <div class="file">
+            <span><button class="file1">test1</button></span>
+            <span><button class="file2">test2</button></span>
+            <span><button class="file3">test3</button></span>
+            <span><button class="file4">test4</button></span>
+        </div>
+
+
+
+
+    </div>
+
+</body>
+
+</html>
