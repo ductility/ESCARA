@@ -50,8 +50,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 //랜더링
-app.get('/',function(req,res) {
+app.get('/index',function(req,res) {
     res.status(200).render('index.ejs');
+})
+app.get('/',function(req,res) {
+    res.status(200).render('joystick.ejs');
 })
 app.get('/joystick',function(req,res) {
     res.status(200).render('joystick.ejs');
