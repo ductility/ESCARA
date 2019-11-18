@@ -26,7 +26,7 @@ var serialPort  = require('serialport');
 //     err.message("Port not found");
 // });
 
-var ArdoinoPort = new serialPort('COM3',{
+var ArdoinoPort = new serialPort('/dev/ttyS4',{
     baudRate : 115200,
     // defaults for Arduino serial communication
     dataBits : 8,
