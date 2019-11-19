@@ -89,45 +89,59 @@ var fs = require('fs');
 
 fs.readFile('file1.gcode', 'utf8', function(err, data){
     if ( err ) throw err;
+    var arr1 = data.toString().split("\n");
     app.get('/image/file1',function(req,res){
-        var arr1 = data.toString().split("\n");
-        for ( i in arr1 ){
-            console.log(arr1[i]);
-            ArdoinoPort.write(arr1[i]+"\n");
-            timeDelay(100);
-        }
+        setTimeout(function() {
+            console.log("ok");
+            //ArdoinoPort.write(arr1[i]+"\n");
+          }, 1000);
+        
+        var count=0;
+        var call_timer = function(idx) {
+            
+            if (idx < arr1.length) {
+                console.log('call_timer', idx);
+
+                setTimeout(() => {
+                    call_timer(idx+1);
+                }, 10);
+            }
+        };
+
+        call_timer(0);
+        
     })
 });
 fs.readFile('file2.gcode', 'utf8', function(err, data){
     if ( err ) throw err;
+    var arr2 = data.toString().split("\n");
     app.get('/image/file2',function(req,res){
-        var arr2 = data.toString().split("\n");
         for ( i in arr2 ){
             console.log(arr2[i]);
             ArdoinoPort.write(arr2[i]+"\n");
-            timeDelay(100);
+            timeDelay(10000);
         }        
     })
 });
 fs.readFile('file3.gcode', 'utf8', function(err, data){
     if ( err ) throw err;
+    var arr3 = data.toString().split("\n");
     app.get('/image/file3',function(req,res){
-        var arr3 = data.toString().split("\n");
         for ( i in arr3 ){
             console.log(arr3[i]);
             ArdoinoPort.write(arr3[i]+"\n");
-            timeDelay(100);
+            timeDelay(1000);
         }
     })
 });
 fs.readFile('file4.gcode', 'utf8', function(err, data){
     if ( err ) throw err;
+    var arr4 = data.toString().split("\n");
     app.get('/image/file4',function(req,res){
-        var arr4 = data.toString().split("\n");
         for ( i in arr4 ){
             console.log(arr4[i]);
             ArdoinoPort.write(arr4[i]+"\n");
-            timeDelay(100);
+            timeDelay(1000);
         }
     })
 });
