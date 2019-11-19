@@ -77,33 +77,57 @@ app.get('/joystick/:id',function(req,res){
 })
 
 
+//Delay 설정
+function timeDelay(timeout) {
+	return new Promise((resolve) => {
+		setTimeout(resolve, timeout);
+	});
+}
+
 //파일읽기
 var fs = require('fs');
+
 fs.readFile('file1.gcode', 'utf8', function(err, data){
+    if ( err ) throw err;
     app.get('/image/file1',function(req,res){
-        console.log(data);
-        ArdoinoPort.write(data) ;
-        res.status(200).send('Controlled, OK!!');
+        var arr1 = data.toString().split("\n");
+        for ( i in arr1 ){
+            console.log(arr1[i]);
+            ArdoinoPort.write(arr1[i]+"\n");
+            timeDelay(100);
+        }
     })
 });
 fs.readFile('file2.gcode', 'utf8', function(err, data){
+    if ( err ) throw err;
     app.get('/image/file2',function(req,res){
-        console.log(data);
-        ArdoinoPort.write(data) ;
-        res.status(200).send('Controlled, OK!!');
+        var arr2 = data.toString().split("\n");
+        for ( i in arr2 ){
+            console.log(arr2[i]);
+            ArdoinoPort.write(arr2[i]+"\n");
+            timeDelay(100);
+        }        
     })
 });
 fs.readFile('file3.gcode', 'utf8', function(err, data){
+    if ( err ) throw err;
     app.get('/image/file3',function(req,res){
-        console.log(data);
-        ArdoinoPort.write(data) ;
-        res.status(200).send('Controlled, OK!!');
+        var arr3 = data.toString().split("\n");
+        for ( i in arr3 ){
+            console.log(arr3[i]);
+            ArdoinoPort.write(arr3[i]+"\n");
+            timeDelay(100);
+        }
     })
 });
 fs.readFile('file4.gcode', 'utf8', function(err, data){
+    if ( err ) throw err;
     app.get('/image/file4',function(req,res){
-        console.log(data);
-        ArdoinoPort.write(data) ;
-        res.status(200).send('Controlled, OK!!');
+        var arr4 = data.toString().split("\n");
+        for ( i in arr4 ){
+            console.log(arr4[i]);
+            ArdoinoPort.write(arr4[i]+"\n");
+            timeDelay(100);
+        }
     })
 });

@@ -26,20 +26,23 @@
         $('.send button,.joystick button').click(function(){
             $.send();
         });
-        $('.file1').click(function(){
+        $('#file1').click(function(){
             $.get("/image/" + "file1", function(data, status){ });
         });
 
-        $('.file2').click(function(){
+        $('#file2').click(function(){
             $.get("/image/" + "file2", function(data, status){ });
         });
 
-        $('.file3').click(function(){
+        $('#file3').click(function(){
             $.get("/image/" + "file3", function(data, status){ });
         });
 
-        $('.file4').click(function(){
+        $('#file4').click(function(){
             $.get("/image/" + "file4", function(data, status){ });
+        });
+        $('#test').click(function(){
+            $.get("/image/" + "file3", function(data, status){ });
         });
     });
 
@@ -87,7 +90,7 @@
 
     <div class="container">
 
-        <h2>Web Application Controller</h2>
+        <h2>컨트롤러</h2>
         
         <div class="send">
             <div>
@@ -101,7 +104,7 @@
         </div>
 
 
-        <div class="joystick">
+        <div class="joystick" style='margin-bottom: 30px;'>
             <div style='margin-bottom: 2px'><button type="button" class="btn btn-default" style='margin-left: 42px' style='margin-bottom: 2px' onclick="Y_plus();">상</button></div>
             <div>
             <span><button type="button" class="btn btn-default" onclick="X_Minus();">좌</button></span>
@@ -112,14 +115,15 @@
         </div>
 
         <div class="file">
-            <span><button class="file1">test1</button></span>
-            <span><button class="file2">test2</button></span>
-            <span><button class="file3">test3</button></span>
-            <span><button class="file4">test4</button></span>
+            <div>
+            <span><button class="btn btn-default" id="file1"><img src="1.jpg" width="100"></button></span>
+            <span><button class="btn btn-default" id="file2"><img src="2,성대로고.jpg" width="100"></button></span>
+            </div>
+            <div>
+            <span><button class="btn btn-default" id="file3"><img src="3, skk 로고.jpg" width="100"></button></span>
+            <span><button class="btn btn-default" id="file4"><img src="4,라이언.jpg" width="100"></button></span>
+            </div>
         </div>
-
-
-
 
     </div>
 
