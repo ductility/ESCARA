@@ -4,6 +4,8 @@ var http = require('http');
 var app = express();
 var path = require('path');
 
+var shell = require('shelljs');
+
 var server = http.createServer(app);
 
 var port = 3000;
@@ -26,7 +28,7 @@ var serialPort  = require('serialport');
 //     err.message("Port not found");
 // });
 
-var ArdoinoPort = new serialPort('/dev/ttyS4',{
+var ArdoinoPort = new serialPort('/dev/ttyS3',{
     baudRate : 115200,
     // defaults for Arduino serial communication
     dataBits : 8,
@@ -76,72 +78,38 @@ app.get('/joystick/:id',function(req,res){
     res.status(200).send('Controlled, OK!!');
 })
 
-
-//Delay 설정
-function timeDelay(timeout) {
-	return new Promise((resolve) => {
-		setTimeout(resolve, timeout);
-	});
-}
-
-//파일읽기
-var fs = require('fs');
-
-fs.readFile('file1.gcode', 'utf8', function(err, data){
-    if ( err ) throw err;
-    var arr1 = data.toString().split("\n");
-    app.get('/image/file1',function(req,res){
-        setTimeout(function() {
-            console.log("ok");
-            //ArdoinoPort.write(arr1[i]+"\n");
-          }, 1000);
-        
-        var count=0;
-        var call_timer = function(idx) {
-            
-            if (idx < arr1.length) {
-                console.log('call_timer', idx);
-
-                setTimeout(() => {
-                    call_timer(idx+1);
-                }, 10);
-            }
-        };
-
-        call_timer(0);
-        
-    })
+app.get('/image/file1',function(req,res){
+    shell.cd('./')
+ 
+    if(shell.exec('./gcode-cli file1.gcode').code !== 0) {
+    shell.echo('Error: command failed')
+    shell.exit(1)
+    }
 });
-fs.readFile('file2.gcode', 'utf8', function(err, data){
-    if ( err ) throw err;
-    var arr2 = data.toString().split("\n");
-    app.get('/image/file2',function(req,res){
-        for ( i in arr2 ){
-            console.log(arr2[i]);
-            ArdoinoPort.write(arr2[i]+"\n");
-            timeDelay(10000);
-        }        
-    })
+
+app.get('/image/file2',function(req,res){
+    shell.cd('./')
+ 
+    if(shell.exec('./gcode-cli file2.gcode').code !== 0) {
+    shell.echo('Error: command failed')
+    shell.exit(1)
+    }
 });
-fs.readFile('file3.gcode', 'utf8', function(err, data){
-    if ( err ) throw err;
-    var arr3 = data.toString().split("\n");
-    app.get('/image/file3',function(req,res){
-        for ( i in arr3 ){
-            console.log(arr3[i]);
-            ArdoinoPort.write(arr3[i]+"\n");
-            timeDelay(1000);
-        }
-    })
+
+app.get('/image/file3',function(req,res){
+    shell.cd('./')
+ 
+    if(shell.exec('./gcode-cli file3.gcode').code !== 0) {
+    shell.echo('Error: command failed')
+    shell.exit(1)
+    }
 });
-fs.readFile('file4.gcode', 'utf8', function(err, data){
-    if ( err ) throw err;
-    var arr4 = data.toString().split("\n");
-    app.get('/image/file4',function(req,res){
-        for ( i in arr4 ){
-            console.log(arr4[i]);
-            ArdoinoPort.write(arr4[i]+"\n");
-            timeDelay(1000);
-        }
-    })
+
+app.get('/image/file4',function(req,res){
+    shell.cd('./')
+ 
+    if(shell.exec('./gcode-cli file4.gcode').code !== 0) {
+    shell.echo('Error: command failed')
+    shell.exit(1)
+    }
 });
