@@ -93,9 +93,13 @@
         <h2>컨트롤러</h2>
         
         <div class="send">
-            <div>
+            <div style='margin-bottom: 3px'>
             <button type="button" class="btn btn-warning" onclick='dumpSet("G28");'>Home</button>
             <button type="button" class="btn btn-warning" onclick='resetXY()'>원점으로</button>
+            </div>
+            <div style='margin-bottom: 3px'>
+            <button type="button" class="btn btn-success" onclick='dumpSet("M4 L50T75")'>서보각도 25도</button>
+            <button type="button" class="btn btn-success" onclick='dumpSet("M4 L50T85")'>서보각도 35도</button>
             </div>
             <div style='margin-bottom: 30px'>
             <button type="button" class="btn btn-primary" onclick='dumpSet("M3");'>Pen Down</button>
@@ -115,15 +119,17 @@
         </div>
 
         <div class="file">
-            <div>
+            <div style='margin-bottom: 4px'>
             <span><button class="btn btn-default" id="file1" onclick="location.href='/image'"><img src="1_pengSu.jpg" width="100"></button></span>
             <span><button class="btn btn-default" id="file2" onclick="location.href='/image' "><img src="2_circleSKKU.jpg" width="100"></button></span>
             </div>
-            <div>
+            <div style='margin-bottom: 4px'>
             <span><button class="btn btn-default" id="file3" onclick="location.href='/image' "><img src="3_SKK.jpg" width="100"></button></span>
             <span><button class="btn btn-default" id="file4" onclick="location.href='/image' "><img src="4_Lion.jpg" width="100"></button></span>
             </div>
+            <div style='margin-bottom: 4px'>
             <span><button class="btn btn-default" id="file5" onclick="location.href='/image' "><img src="5_library.jpg" width="100"></button></span>
+            </div>
         </div>
 
     </div>
