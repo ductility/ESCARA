@@ -16,9 +16,19 @@
     function dumpSet(gcode) {
         dump = gcode;
     }
+    
+    //gcode filename 전송
+    var filename = null;
+    function fileSet(imagename) {
+        filename = imagename;
+    }
 
     $.send = function(data, status){
         $.get("/joystick/" + dump, function(data, status){ });        
+    };
+
+    $.sendImg = function(data, status){
+        $.get("/image/" + filename, function(data, status){ });        
     };
 
     //send, joystick의 후손 버튼들을 눌렀을 때만 G코드 전송(비동기방식 설정해야하나?)
@@ -26,26 +36,8 @@
         $('.send button,.joystick button').click(function(){
             $.send();
         });
-        $('#file1').click(function(){
-            $.get("/image/" + "file1", function(data, status){ });
-        });
-
-        $('#file2').click(function(){
-            $.get("/image/" + "file2", function(data, status){ });
-        });
-
-        $('#file3').click(function(){
-            $.get("/image/" + "file3", function(data, status){ });
-        });
-
-        $('#file4').click(function(){
-            $.get("/image/" + "file4", function(data, status){ });
-        });
-        $('#file5').click(function(){
-            $.get("/image/" + "file5", function(data, status){ });
-        });
-        $('#file6').click(function(){
-            $.get("/image/" + "file6", function(data, status){ });
+        $('.file button').click(function(){
+            $.sendImg();
         });
     });
 
@@ -85,7 +77,7 @@
 
     <meta charset="UTF-8">
 
-    <title>Controller</title>
+    <title>E-SCARA</title>
 
 </head>
 
@@ -93,16 +85,16 @@
 
     <div class="container">
 
-        <h2>컨트롤러</h2>
+        <h1 style="margin-bottom: 20px;">E-SCARA</h1>
         
-        <div class="send">
+        <div class="send" style='margin-left: 3px'>
             <div style='margin-bottom: 3px'>
             <button type="button" class="btn btn-warning" onclick='dumpSet("G28");'>Home</button>
             <button type="button" class="btn btn-warning" onclick='resetXY()'>원점으로</button>
             </div>
             <div style='margin-bottom: 3px'>
-            <button type="button" class="btn btn-success" onclick='dumpSet("M4 L50T75")'>서보각도 25도</button>
-            <button type="button" class="btn btn-success" onclick='dumpSet("M4 L50T85")'>서보각도 35도</button>
+            <button type="button" class="btn btn-success" onclick='dumpSet("M4 L50T75")'>Servo 25</button>
+            <button type="button" class="btn btn-success" onclick='dumpSet("M4 L50T85")'>Servo 35</button>
             </div>
             <div style='margin-bottom: 30px'>
             <button type="button" class="btn btn-primary" onclick='dumpSet("M3");'>Pen Down</button>
@@ -111,7 +103,7 @@
         </div>
 
 
-        <div class="joystick" style='margin-bottom: 30px;'>
+        <div class="joystick" style='margin-left: 5px;'>
             <div style='margin-bottom: 2px'><button type="button" class="btn btn-default" style='margin-left: 42px' style='margin-bottom: 2px' onclick="Y_plus();">상</button></div>
             <div>
             <span><button type="button" class="btn btn-default" onclick="X_Minus();">좌</button></span>
@@ -121,19 +113,24 @@
             <div style='margin-top: 2px'><button type="button" class="btn btn-default" style= 'margin-left: 42px' onclick="Y_Minus();">하</button></div>
         </div>
 
-        <div class="file">
+        <div class="file" style='margin-top: 50px;' >
             <div style='margin-bottom: 4px'>
-            <span><button class="btn btn-default" id="file1" onclick="location.href='/image'"><img src="1_pengSu.jpg" width="100"></button></span>
-            <span><button class="btn btn-default" id="file2" onclick="location.href='/image' "><img src="2_circleSKKU.jpg" width="100"></button></span>
+            <span><button class="btn btn-default" onclick="fileSet('1_circleSKKU')"><img src="1_circleSKKU.jpg" width="135"></button></span>
+            <span><button class="btn btn-default" onclick="fileSet('2_SKK')"><img src="2_SKK.jpg" width="135"></button></span>
             </div>
             <div style='margin-bottom: 4px'>
-            <span><button class="btn btn-default" id="file3" onclick="location.href='/image' "><img src="3_SKK.jpg" width="100"></button></span>
-            <span><button class="btn btn-default" id="file4" onclick="location.href='/image' "><img src="4_Lion.jpg" width="100"></button></span>
+            <span><button class="btn btn-default" onclick="fileSet('3_library')"><img src="3_library.jpg" width="135"></button></span>
+            <span><button class="btn btn-default" onclick="fileSet('4_hs')"><img src="4_hs.jpg" width="135"></button></span>
             </div>
             <div style='margin-bottom: 4px'>
-            <span><button class="btn btn-default" id="file5" onclick="location.href='/image' "><img src="5_library.jpg" width="100"></button></span>
-            <span><button class="btn btn-default" id="file6" onclick="location.href='/image' "><img src="6_kjy.jpg" width="100"></button></span>
+            <span><button class="btn btn-default" onclick="fileSet('5_Lion')"><img src="5_Lion.jpg" width="135"></button></span>
+            <span><button class="btn btn-default" onclick="fileSet('6_peach')"><img src="6_peach.png" width="135"></button></span>
             </div>
+            <div style='margin-bottom: 4px'>
+            <span><button class="btn btn-default" onclick="fileSet('7_KJY')"><img src="7_KJY.png" width="135"></button></span>
+            <span><button class="btn btn-default" onclick="fileSet('8_PS')"><img src="8_PS.jpg" width="135"></button></span>
+            </div>
+
         </div>
 
     </div>

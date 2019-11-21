@@ -78,56 +78,13 @@ app.get('/joystick/:id',function(req,res){
     res.status(200).send('Controlled, OK!!');
 })
 
-app.get('/image/file1',function(req,res){
+//image id가 들어오면 지코드 실행.
+app.get('/image/:id',function(req,res){
+    console.log(req.params.id);
     shell.cd('./')
  
-    if(shell.exec('./gcode-cli 1_pengSu.gcode').code !== 0) {
+    if(shell.exec('./gcode-cli ' + req.params.id + '.gcode').code !== 0) {
     shell.echo('Error: command failed')
     shell.exit(1)
     }
-});
-
-app.get('/image/file2',function(req,res){
-    shell.cd('./')
- 
-    if(shell.exec('./gcode-cli 2_circleSKKU.gcode').code !== 0) {
-    shell.echo('Error: command failed')
-    shell.exit(1)
-    }
-});
-
-app.get('/image/file3',function(req,res){
-    shell.cd('./')
- 
-    if(shell.exec('./gcode-cli 3_SKK.gcode').code !== 0) {
-    shell.echo('Error: command failed')
-    shell.exit(1)
-    }
-});
-
-app.get('/image/file4',function(req,res){
-    shell.cd('./')
- 
-    if(shell.exec('./gcode-cli 4_Lion.gcode').code !== 0) {
-    shell.echo('Error: command failed')
-    shell.exit(1)
-    }
-});
-
-app.get('/image/file5',function(req,res){
-    shell.cd('./')
- 
-    if(shell.exec('./gcode-cli 5_library.gcode').code !== 0) {
-    shell.echo('Error: command failed')
-    shell.exit(1)
-    }
-});
-
-app.get('/image/file6',function(req,res){
-    shell.cd('./')
- 
-    if(shell.exec('./gcode-cli 6_kjy.gcode').code !== 0) {
-    shell.echo('Error: command failed')
-    shell.exit(1)
-    }
-});
+})
