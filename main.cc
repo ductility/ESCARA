@@ -33,7 +33,7 @@ int main(int argc, char *argv[]) {
     std::fstream input(filename);
 
     // TODO(hzeller): make configurable via a flag.
-    const int machine_fd = OpenMachineConnection("/dev/ttyS3,b115200");
+    const int machine_fd = OpenMachineConnection("/dev/ttyS4,b115200");
     if (machine_fd < 0) {
         fprintf(stderr, "Failed to connect to machine\n");
         return 1;
