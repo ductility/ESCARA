@@ -44,6 +44,9 @@
         $('#file5').click(function(){
             $.get("/image/" + "file5", function(data, status){ });
         });
+        $('#file6').click(function(){
+            $.get("/image/" + "file6", function(data, status){ });
+        });
     });
 
     //조이스틱 구동을 위한 설정
@@ -129,6 +132,7 @@
             </div>
             <div style='margin-bottom: 4px'>
             <span><button class="btn btn-default" id="file5" onclick="location.href='/image' "><img src="5_library.jpg" width="100"></button></span>
+            <span><button class="btn btn-default" id="file6" onclick="location.href='/image' "><img src="6_kjy.jpg" width="100"></button></span>
             </div>
         </div>
 

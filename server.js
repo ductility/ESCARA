@@ -122,3 +122,12 @@ app.get('/image/file5',function(req,res){
     shell.exit(1)
     }
 });
+
+app.get('/image/file6',function(req,res){
+    shell.cd('./')
+ 
+    if(shell.exec('./gcode-cli 6_kjy.gcode').code !== 0) {
+    shell.echo('Error: command failed')
+    shell.exit(1)
+    }
+});
