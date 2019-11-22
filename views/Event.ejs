@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <script>
+
+    //dump에 보낼 gcode 넣기
+    var dump = null;
+    function dumpSet(gcode) {
+        dump = gcode;
+    }
+    
+    //gcode filename 전송
+    var filename = null;
+    function fileSet(imagename) {
+        filename = imagename;
+    }
+
+    $.send = function(data, status){
+        $.get("/joystick/" + dump, function(data, status){ });        
+    };
+
+    $.sendImg = function(data, status){
+        $.get("/Event/" + filename, function(data, status){ });        
+    };
+
+    //send, joystick의 후손 버튼들을 눌렀을 때만 G코드 전송(비동기방식 설정해야하나?)
+    $(document).ready(function(){
+        $('.send button,.joystick button').click(function(){
+            $.send();
+        });
+        $('#Event').click(function(){
+            $.get("/Event/Event" , function(data, status){ });
+
+        });
+    });
+
+    //조이스틱 구동을 위한 설정
+    var X = 0;
+    var Y = 0;
+    var step = 15;
+    function resetXY() {
+        X = 0;
+        Y = 0;
+        dumpSet("G1 X0Y0");
+    }
+
+    function X_plus() {
+        if (X+step <=300) X += step;
+        var gcode = "G1"+" X"+String(X)+"Y"+String(Y);
+        dumpSet(gcode);
+    }
+    function X_Minus() {
+        if (X-step >=0) X -= step;
+        var gcode = "G1"+" X"+String(X)+"Y"+String(Y);
+        dumpSet(gcode);
+    }
+    function Y_plus() {
+        if (Y+step <= 300) Y += step;
+        var gcode = "G1"+" X"+String(X)+"Y"+String(Y);
+        dumpSet(gcode);
+    }
+    function Y_Minus() {
+        if (Y-step >=0) Y -= step;
+        var gcode = "G1"+" X"+String(X)+"Y"+String(Y);
+        dumpSet(gcode);
+    }
+
+
+    </script>
+
+    <meta charset="UTF-8">
+
+    <title>E-SCARA</title>
+
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1 style="margin-bottom: 20px;">E-SCARA</h1>
+        
+        <div class="send" style='margin-left: 3px'>
+            <div style='margin-bottom: 3px'>
+            <button type="button" class="btn btn-warning" onclick='dumpSet("G28");'>Home</button>
+            <button type="button" class="btn btn-warning" onclick='resetXY()'>원점으로</button>
+            </div>
+            <div style='margin-bottom: 3px'>
+            <button type="button" class="btn btn-success" onclick='dumpSet("M4 L50T70")'>L55T70</button>
+            <button type="button" class="btn btn-success" onclick='dumpSet("M4 L50T75")'>L55T75</button>
+            <button type="button" class="btn btn-success" onclick='dumpSet("M4 L55T70")'>L55T80</button>
+            <button type="button" class="btn btn-success" onclick='dumpSet("M4 L55T75")'>L55T85</button>
+            </div>
+            <div style='margin-bottom: 3px'>
+            <button type="button" class="btn btn-success" onclick='dumpSet("M4 L60T70")'>L60T70</button>
+            <button type="button" class="btn btn-success" onclick='dumpSet("M4 L60T75")'>L60T75</button>
+            <button type="button" class="btn btn-success" onclick='dumpSet("M4 L60T80")'>L60T80</button>
+            <button type="button" class="btn btn-success" onclick='dumpSet("M4 L60T85")'>L60T85</button>
+            </div>
+            <div style='margin-bottom: 30px'>
+            <button type="button" class="btn btn-primary" onclick='dumpSet("M3");'>Pen Down</button>
+            <button type="button" class="btn btn-primary" onclick='dumpSet("M5");'>Pen Up</button>
+            </div>
+        </div>
+
+        <div class="file" style='margin-top: 50px;' >
+            <div style='margin-bottom: 4px'>
+            <span><button class="btn btn-default" id = "Event" ><img src="Event.png" width="250"></button></span>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+
+</html>

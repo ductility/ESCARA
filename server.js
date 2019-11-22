@@ -55,6 +55,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.get('/index',function(req,res) {
     res.status(200).render('index.ejs');
 })
+app.get('/event',function(req,res) {
+    res.status(200).render('Event.ejs');
+})
 app.get('/',function(req,res) {
     res.status(200).render('joystick.ejs');
 })
@@ -81,9 +84,19 @@ app.get('/joystick/:id',function(req,res){
 //image id가 들어오면 지코드 실행.
 app.get('/image/:id',function(req,res){
     console.log(req.params.id);
+    ArdoinoPort.write('M5\nG28\n') ;
     shell.cd('./')
  
     if(shell.exec('./gcode-cli ' + req.params.id + '.gcode').code !== 0) {
+    shell.echo('Error: command failed')
+    shell.exit(1)
+    }
+})
+
+app.get('/Event/Event',function(req,res){
+    shell.cd('./')
+ 
+    if(shell.exec('./gcode-cli Event.gcode').code !== 0) {
     shell.echo('Error: command failed')
     shell.exit(1)
     }
